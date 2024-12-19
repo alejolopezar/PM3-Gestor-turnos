@@ -37,6 +37,20 @@ const newAppointmentService = async (dataApp: newAppointmentDataDTO): Promise<IA
     id++;
 
     return newApp;
-};
+}
 
-export { getAllAppointmentsService, getAppointmentByIdService, newAppointmentService };
+const cancelAppointmentService = async (id: number) => {
+    
+    const foundApp = await getAppointmentByIdService(id)
+
+    if(!foundApp){
+        return false;
+    }
+
+    foundApp.status = StatusAppointment.CANCELLED
+
+    return true;
+
+}
+
+export { getAllAppointmentsService, getAppointmentByIdService, newAppointmentService, cancelAppointmentService };
