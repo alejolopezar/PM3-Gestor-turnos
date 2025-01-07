@@ -1,6 +1,13 @@
+import { initializeDataSource } from "./config/data-source";
 import server from "./server";
 import { PORT } from "./config/envs"
 
-server.listen(3000, () => {
-    console.log(`Server listening on port ${PORT}`);
-});
+try {
+    server.listen(PORT, () => {
+        console.log(`Server listening on port ${PORT}`);
+    });
+} catch (error) {
+    console.log(error);
+}
+
+initializeDataSource();
