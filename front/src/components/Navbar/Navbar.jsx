@@ -1,4 +1,4 @@
-import style from "./Navbar.module.css"
+import { Container, ButtonsContainer } from "/styled"
 
 const Navbar = () => {
 
@@ -7,15 +7,15 @@ const Navbar = () => {
     const logoutButton = () => {console.log("logout")}
 
   return (
-    <div className="style.contoiner">
+    <Container>
 
     <h2>TurnosApp</h2>
-        <div>
+        <ButtonsContainer>
             <button onClick={homeButton}>Home</button>
             <button onClick={profileButton}>Home</button>
             <button onClick={logoutButton}>Home</button>
-      </div>
-      </div>
+      </ButtonsContainer>
+      </Container>
   )
 }
 export default Navbar
