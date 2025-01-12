@@ -17,7 +17,7 @@ const getAllUsersService = async (): Promise<User[]> => {
 const getUserByIdService = async (id: number): Promise<User | null> => {
     const foundUser = await UserRepository.findOne({
         where: { id },
-        relations: ["credentials", "appointments"],
+        relations: ["appointments"],
     });
 
     return foundUser;

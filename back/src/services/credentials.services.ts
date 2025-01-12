@@ -1,6 +1,7 @@
 import { userCredentialsDTO } from "../dto/userCredentialsDTO"
 import { AppDataSource } from "../config/data-source";
 import { Credential } from "../entities/Credentials";
+import { User } from "../entities/User";
 
 const CredentialsRepository = AppDataSource.getRepository(Credential)
 
@@ -21,7 +22,7 @@ const createUserCredentialsService = async (
 
 const checkCredentialsService = async (
     credentials: userCredentialsDTO
-): Promise<number> => {
+): Promise<null | User> => {
     const { username, password } = credentials;
 
     const foundCredentials = await CredentialsRepository.findOne({
@@ -29,8 +30,8 @@ const checkCredentialsService = async (
         relations:["user"]
     });
     console.log(foundCredentials);
-    if (foundCredentials?.password === password) return foundCredentials.id;
-    else return 0;
+    if (foundCredentials?.password === password) return foundCredentials.user;
+    else return null;
 };
 
 export { createUserCredentialsService, checkCredentialsService };

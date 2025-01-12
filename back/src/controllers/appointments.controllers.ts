@@ -7,15 +7,31 @@ import {
 } from "../services/appointments.services";
 
 const getAllAppointments = async (req: Request, res: Response) => {
-    const allApp = await getAllAppointmentsService();
-    res
-    .status(200)
-    .json(allApp);
-    return;
+    try {
+        const allApp = await getAllAppointmentsService();
+
+        if (allApp.length) {
+            res
+            .status(200)
+            .json(allApp);
+            return;
+        } else {
+            res
+        .status(404)
+        .json({ message: "No hay turnos registrados"});
+        return;
+        }
+        
+    } catch (error) {
+        res.status(500).json({ message: "Error en el servidor", error });
+        return;
+    }
+    
 };
 
 const getAppointmentById = async (req: Request, res: Response) => {
-    const { id } = req.params;
+    try {
+        const { id } = req.params;
 
     const app = await getAppointmentByIdService(+id);
 
@@ -24,36 +40,54 @@ const getAppointmentById = async (req: Request, res: Response) => {
         return;
     } else {
         res
-        .status(400)
+        .status(404)
         .json({
             message: "El turno no existe",
         });
         return;
     }
+    } catch (error) {
+        res.status(500).json({ message: "Error en el servidor", error });
+        return;
+    }
+    
 };
 
 const createNewAppointment = async (req: Request, res: Response) => {
-    const { date, time, userId } = req.body;
+    try {
+        const { date, time, userId } = req.body;
 
-    const newApp = await newAppointmentService({ date, time, userId })
+        if(!date || !time || userId ){
+            res.status(400).json({ error: "Datos incompletos"});
+            return;
+        }
+        const newApp = await newAppointmentService({ date, time, userId })
 
-    if(!newApp){
-        res.status(400).json({
-            message: "El usuario no existe",
-        });
+        if(!newApp){
+            res.status(400).json({
+                message: "El usuario no existe",
+            });
+            return;
+        } else {
+            res
+            .status(201)
+            .json({
+                message: "Turno creado",
+                newApp,
+            });
+        }
+    } catch (error) {
+        res.status(500).json({ message: "Error en el servidor", error });
         return;
-    } else {
-        res
-        .status(200)
-        .json({
-            message: "Turno creado",
-            newApp,
-        });
     }
+    
+
+    
 };
 
 const cancelAppointment = async (req: Request, res: Response) => {
-    const { id } = req.params;
+    try {
+        const { id } = req.params;
 
     const response = await cancelAppointmentService(+id);
     
@@ -64,12 +98,17 @@ const cancelAppointment = async (req: Request, res: Response) => {
         return;
     } else {
         res
-        .status(400)
+        .status(404)
         .json({
             message: "El turno no existe",
         });
         return;
     }
+    } catch (error) {
+        res.status(500).json({ message: "Error en el servidor", error });
+        return;
+    }
+    
 };
 
 export { getAllAppointments, getAppointmentById, createNewAppointment, cancelAppointment };
