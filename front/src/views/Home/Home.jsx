@@ -1,9 +1,11 @@
 import Navbar from "../../components/Navbar/Navbar"
+import MyAppointments from "../../components/MyAppointments/MyAppointments"
 const Home = () => {
   return (
-    <div>
+    <>
       <Navbar/>
-    </div>
+      <MyAppointments/>
+      </>
   )
 }
 
