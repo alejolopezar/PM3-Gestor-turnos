@@ -1,12 +1,14 @@
-import Navbar from "../../components/Navbar/Navbar"
 import MyAppointments from "../../components/MyAppointments/MyAppointments"
+import Schedule from "../..components/Schedule"
+
 const Home = () => {
   return (
     <>
-      <Navbar/>
+    <Schedule />
       <MyAppointments/>
-      </>
-  )
-}
 
-export default Home
+    </>
+  );
+};
+
+export default Home;

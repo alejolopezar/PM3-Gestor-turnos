@@ -1,23 +1,29 @@
 import MyAppointment from "../../components/MyAppointment/MyAppointment"
-import { useState } from "react"
-import axios from "axios";
+import { useContext, useState } from "react"
 import { useEffect } from "react";
+import { UserContext } from "../../context/User";
 
 const MyAppointments = () => {
-
-    const [appointements, setAppointments ] = useState([]);
+    const {appointements, getAppointments, user, cancelAppointment} = useContext(UserContext);
+    const [flag, setFlag] = useState(true)
 
     useEffect(() => {
-        axios
-        .get("http://localhost:3000/appointments")
-        .then((response) => {
-            setAppointments(response.data);
-        })
-        .catch((error) => alert(error));
+        //const userId = localStorage.getItem("userId")
+        const fetch = async () => await getAppointments(user.id);
+        fetch();
+        
     }, []);
 
-    const handleCancel = (id) => {
-        console.log("Turno cancelado", id);
+    const handleCancel = async (id) => {
+        try {
+            
+            await cancelAppointment(id);
+            setFlag(!flag)
+
+        } catch (error) {
+            alert("Error al cancelar el turno", error)
+        }
+
     };
     
     return (
@@ -26,11 +32,9 @@ const MyAppointments = () => {
         {appointements?.map((app) => (
             <MyAppointment
             key={app.id}
-            name={app.user.name}
-            email={app.user.email}
             date={app.date}
             time={app.time}
-            status={app.status}
+            status={app.status === "active" ? "Activo": "Cancelado"}
             handleCancel={() => handleCancel(app.id)}
             />
         ))}
