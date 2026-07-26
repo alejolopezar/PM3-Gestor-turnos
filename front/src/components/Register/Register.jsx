@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { validateRegisterForm } from "./validateRegisterForm";
-import { axios } from "axios";
+import axios  from "axios";
 import { SLASH } from "../../helpers/pathsUrls";
 import { Link, useNavigate } from "react-router-dom"; 
 
