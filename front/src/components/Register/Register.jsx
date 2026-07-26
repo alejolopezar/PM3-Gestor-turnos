@@ -46,7 +46,7 @@ const Register = () => {
         e.preventDefault();
 
         try {
-            await axios.post("http:/localhost:3000/users/register", newUser);
+            await axios.post("http://localhost:3000/users/register", newUser);
             alert("Usuario registrado con éxito");
             navigate(SLASH)
         } catch (error) {

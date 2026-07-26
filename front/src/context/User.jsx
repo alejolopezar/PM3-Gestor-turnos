@@ -19,7 +19,7 @@ export const UserProvider = ({children}) => {
   const login = async (input) => {
     try {
       const {data} = await axios.post(
-        "http://localhost:3000/users/login/",
+        "http://localhost:3000/users/login",
         input
       );
       setUser(data.user);
