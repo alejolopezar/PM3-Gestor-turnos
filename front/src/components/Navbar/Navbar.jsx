@@ -1,5 +1,5 @@
 import { SLASH } from "../../helpers/pathsUrls";
-import { Container, ButtonsContainer } from "/styled"
+import { Container, ButtonsContainer } from "/styled-components"
 import { useLocation, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
