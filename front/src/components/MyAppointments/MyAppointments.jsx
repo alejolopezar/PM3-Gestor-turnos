@@ -1,4 +1,4 @@
-import MyAppointment from "../MyAppointment/MyAppointment"
+import MyAppointment from "../MyAppointments/MyAppointments"
 import { useContext, useState } from "react"
 import { useEffect } from "react";
 import { UserContext } from "../../context/User";
